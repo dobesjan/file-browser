@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -80,27 +81,41 @@ namespace FileBrowser
         private void LoadFiles(string path, bool isLeftPane)
         {
             var items = new ObservableCollection<FileItem>();
-            var directories = Directory.GetDirectories(path);
-            var files = Directory.GetFiles(path);
 
-            foreach (var directory in directories)
+            try
             {
-                items.Add(new FileItem
+                var directories = Directory.GetDirectories(path);
+                var files = Directory.GetFiles(path);
+
+                foreach (var directory in directories)
                 {
-                    Name = new DirectoryInfo(directory).Name,
-                    Path = directory,
-                    IsDirectory = true
-                });
+                    var directoryInfo = new DirectoryInfo(directory);
+                    items.Add(new FileItem
+                    {
+                        Name = directoryInfo.Name,
+                        Path = directoryInfo.FullName,
+                        IsDirectory = true,
+                        Size = 0,
+                        CreationDate = directoryInfo.CreationTime
+                    });
+                }
+
+                foreach (var file in files)
+                {
+                    var fileInfo = new FileInfo(file);
+                    items.Add(new FileItem
+                    {
+                        Name = fileInfo.Name,
+                        Path = fileInfo.FullName,
+                        IsDirectory = false,
+                        Size = fileInfo.Length,
+                        CreationDate = fileInfo.CreationTime
+                    });
+                }
             }
-
-            foreach (var file in files)
+            catch (Exception ex)
             {
-                items.Add(new FileItem
-                {
-                    Name = new FileInfo(file).Name,
-                    Path = file,
-                    IsDirectory = false
-                });
+                Console.WriteLine($"Error loading files: {ex.Message}");
             }
 
             if (isLeftPane)

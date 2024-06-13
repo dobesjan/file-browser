@@ -46,6 +46,8 @@
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                                        <GridViewColumn Header="Size" DisplayMemberBinding="{Binding Size}" />
+                                        <GridViewColumn Header="Creation Date" DisplayMemberBinding="{Binding CreationDate}" />
                                     </GridView>
                                 </ListView.View>
                             </ListView>
@@ -59,6 +61,8 @@
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                                        <GridViewColumn Header="Size" DisplayMemberBinding="{Binding Size}" />
+                                        <GridViewColumn Header="Creation Date" DisplayMemberBinding="{Binding CreationDate}" />
                                     </GridView>
                                 </ListView.View>
                             </ListView>
