@@ -49,8 +49,11 @@ namespace FileBrowser
         {
             if (SelectedTab != null)
             {
-                Tabs.Remove(SelectedTab);
-                SelectedTab = Tabs.Count > 0 ? Tabs[0] : null;
+                if (Tabs != null && Tabs.Any())
+                {
+                    Tabs.Remove(SelectedTab);
+                    SelectedTab = Tabs.Count > 0 ? Tabs[0] : null;
+                }
             }
         }
 
