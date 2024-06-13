@@ -25,7 +25,9 @@
         <TabControl Grid.Row="1" ItemsSource="{Binding Tabs}" SelectedItem="{Binding SelectedTab}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Title}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Title}" />
+                    </StackPanel>
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>

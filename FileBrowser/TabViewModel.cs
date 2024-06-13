@@ -55,6 +55,8 @@ namespace FileBrowser
             set => SetProperty(ref _selectedRightPaneItem, value);
         }
 
+        public string Title => Path.GetFileName(LeftPanePath);
+
         public IRelayCommand<string> LoadLeftPaneCommand { get; }
         public IRelayCommand<string> LoadRightPaneCommand { get; }
         public IRelayCommand<(FileItem, bool)> OpenItemCommand { get; }
@@ -105,6 +107,7 @@ namespace FileBrowser
             {
                 LeftPaneItems = items;
                 LeftPanePath = path;
+                OnPropertyChanged(nameof(Title));
             }
             else
             {

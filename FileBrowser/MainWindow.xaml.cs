@@ -50,10 +50,6 @@ namespace FileBrowser
                 {
                     ViewModel.SelectedTab.LoadLeftPaneCommand.Execute(newPath);
                 }
-                else
-                {
-                    MessageBox.Show("Invalid path, please enter a valid directory path.");
-                }
             }
         }
 
@@ -65,10 +61,6 @@ namespace FileBrowser
                 if (Directory.Exists(newPath))
                 {
                     ViewModel.SelectedTab.LoadRightPaneCommand.Execute(newPath);
-                }
-                else
-                {
-                    MessageBox.Show("Invalid path, please enter a valid directory path.");
                 }
             }
         }
