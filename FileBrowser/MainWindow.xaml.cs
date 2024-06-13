@@ -1,4 +1,5 @@
 ﻿using FileBrowser.Models;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,12 +43,26 @@ namespace FileBrowser
 
         private void LeftPanePath_TextChanged(object sender, TextChangedEventArgs args)
         {
-            
+            if (sender is TextBox textBox)
+            {
+                var newPath = textBox.Text;
+                if (Directory.Exists(newPath))
+                {
+                    ViewModel.LoadLeftPaneCommand.Execute(newPath);
+                }
+            }
         }
 
         private void RightPanePath_TextChanged(object sender, TextChangedEventArgs args)
         {
-            
+            if (sender is TextBox textBox)
+            {
+                var newPath = textBox.Text;
+                if (Directory.Exists(newPath))
+                {
+                    ViewModel.LoadRightPaneCommand.Execute(newPath);
+                }
+            }
         }
     }
 }
