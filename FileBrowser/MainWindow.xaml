@@ -10,35 +10,57 @@
         <local:MainViewModel />
     </Window.DataContext>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <DockPanel Grid.Column="0">
-            <TextBox Text="{Binding LeftPanePath}" DockPanel.Dock="Top"
-                     TextChanged="LeftPanePath_TextChanged" />
-            <ListView ItemsSource="{Binding LeftPaneItems}" 
-                      SelectedItem="{Binding SelectedLeftPaneItem}" 
-                      MouseDoubleClick="LeftPaneItem_DoubleClick">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </DockPanel>
-        <DockPanel Grid.Column="1">
-            <TextBox Text="{Binding RightPanePath}" DockPanel.Dock="Top"
-                     TextChanged="RightPanePath_TextChanged" />
-            <ListView ItemsSource="{Binding RightPaneItems}" 
-                      SelectedItem="{Binding SelectedRightPaneItem}" 
-                      MouseDoubleClick="RightPaneItem_DoubleClick">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </DockPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Add tab button -->
+        <Button Content="Add Tab" Command="{Binding AddNewTabCommand}" HorizontalAlignment="Left" Margin="10"
+                VerticalAlignment="Top" />
+
+        <TabControl Grid.Row="1" ItemsSource="{Binding Tabs}" SelectedItem="{Binding SelectedTab}">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Title}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <DockPanel Grid.Column="0">
+                            <TextBox Text="{Binding LeftPanePath, Mode=TwoWay}" DockPanel.Dock="Top"
+                                     TextChanged="LeftPanePath_TextChanged" />
+                            <ListView ItemsSource="{Binding LeftPaneItems}" 
+                                      SelectedItem="{Binding SelectedLeftPaneItem}" 
+                                      MouseDoubleClick="LeftPaneItem_DoubleClick">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </DockPanel>
+                        <DockPanel Grid.Column="1">
+                            <TextBox Text="{Binding RightPanePath, Mode=TwoWay}" DockPanel.Dock="Top"
+                                     TextChanged="RightPanePath_TextChanged" />
+                            <ListView ItemsSource="{Binding RightPaneItems}" 
+                                      SelectedItem="{Binding SelectedRightPaneItem}" 
+                                      MouseDoubleClick="RightPaneItem_DoubleClick">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </DockPanel>
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
     </Grid>
 </Window>

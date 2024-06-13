@@ -27,40 +27,48 @@ namespace FileBrowser
 
         private void LeftPaneItem_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (((ListView)sender).SelectedItem is FileItem item)
+            if (ViewModel.HasSelectedTab() && ((ListView)sender).SelectedItem is FileItem item)
             {
-                ViewModel.OpenItemCommand.Execute((item, true));
+                ViewModel.SelectedTab.OpenItemCommand.Execute((item, true));
             }
         }
 
         private void RightPaneItem_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (((ListView)sender).SelectedItem is FileItem item)
+            if (ViewModel.HasSelectedTab() && ((ListView)sender).SelectedItem is FileItem item)
             {
-                ViewModel.OpenItemCommand.Execute((item, false));
+                ViewModel.SelectedTab.OpenItemCommand.Execute((item, false));
             }
         }
 
         private void LeftPanePath_TextChanged(object sender, TextChangedEventArgs args)
         {
-            if (sender is TextBox textBox)
+            if (ViewModel.HasSelectedTab() && sender is TextBox textBox)
             {
                 var newPath = textBox.Text;
                 if (Directory.Exists(newPath))
                 {
-                    ViewModel.LoadLeftPaneCommand.Execute(newPath);
+                    ViewModel.SelectedTab.LoadLeftPaneCommand.Execute(newPath);
+                }
+                else
+                {
+                    MessageBox.Show("Invalid path, please enter a valid directory path.");
                 }
             }
         }
 
         private void RightPanePath_TextChanged(object sender, TextChangedEventArgs args)
         {
-            if (sender is TextBox textBox)
+            if (ViewModel.HasSelectedTab() && sender is TextBox textBox)
             {
                 var newPath = textBox.Text;
                 if (Directory.Exists(newPath))
                 {
-                    ViewModel.LoadRightPaneCommand.Execute(newPath);
+                    ViewModel.SelectedTab.LoadRightPaneCommand.Execute(newPath);
+                }
+                else
+                {
+                    MessageBox.Show("Invalid path, please enter a valid directory path.");
                 }
             }
         }
