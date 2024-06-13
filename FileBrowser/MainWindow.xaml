@@ -15,10 +15,13 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!-- Add tab button -->
-        <Button Content="Add Tab" Command="{Binding AddNewTabCommand}" HorizontalAlignment="Left" Margin="10"
-                VerticalAlignment="Top" />
+        <!-- Toolbar with Add and Remove tab buttons -->
+        <ToolBar Grid.Row="0">
+            <Button Content="Add Tab" Command="{Binding AddNewTabCommand}" />
+            <Button Content="Remove Tab" Command="{Binding RemoveCurrentTabCommand}" />
+        </ToolBar>
 
+        <!-- TabControl to display tabs -->
         <TabControl Grid.Row="1" ItemsSource="{Binding Tabs}" SelectedItem="{Binding SelectedTab}">
             <TabControl.ItemTemplate>
                 <DataTemplate>

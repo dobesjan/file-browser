@@ -28,17 +28,14 @@ namespace FileBrowser
         }
 
         public IRelayCommand AddNewTabCommand { get; }
+        public IRelayCommand RemoveCurrentTabCommand { get; }
 
         public MainViewModel()
         {
             Tabs = new ObservableCollection<TabViewModel>();
             AddNewTabCommand = new RelayCommand(AddNewTab);
+            RemoveCurrentTabCommand = new RelayCommand(RemoveCurrentTab);
             AddNewTab();
-        }
-
-        public bool HasSelectedTab()
-        {
-            return SelectedTab != null;
         }
 
         private void AddNewTab()
@@ -46,6 +43,20 @@ namespace FileBrowser
             var tab = new TabViewModel();
             Tabs.Add(tab);
             SelectedTab = tab;
+        }
+
+        private void RemoveCurrentTab()
+        {
+            if (SelectedTab != null)
+            {
+                Tabs.Remove(SelectedTab);
+                SelectedTab = Tabs.Count > 0 ? Tabs[0] : null;
+            }
+        }
+
+        public bool HasSelectedTab()
+        {
+            return SelectedTab != null;
         }
     }
 }
